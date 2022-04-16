@@ -1,0 +1,7 @@
+---
+# vars file for db-users
+users:
+  - user: eshishkin
+    sudo: "yes"
+  - user: aivanov
+    sudo: "no"

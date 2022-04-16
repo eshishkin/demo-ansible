@@ -1,0 +1,61 @@
+version: "3.7"
+
+networks:
+  backend:
+ 
+services:
+  ansible:
+    image: eshishkin/ansible
+    stdin_open: true
+    tty: true   
+    volumes:
+      - "./playbooks:/opt/ansible/playbooks"
+      - "./keys/master:/root/.ssh/"
+    networks:
+      - backend
+
+  service-one:
+    image: eshishkin/ssh
+    stdin_open: true
+    tty: true   
+    deploy:    
+      replicas: 2
+    volumes:
+      - "./keys/slaves/:/home/ansible/.ssh:ro"
+    networks:
+      - backend
+
+  service-two:
+    image: eshishkin/ssh
+    stdin_open: true
+    tty: true   
+    deploy:    
+      replicas: 2
+    volumes:
+      - "./keys/slaves/:/home/ansible/.ssh/:ro"
+    networks:
+      - backend
+
+  service-three:
+    image: eshishkin/ssh
+    stdin_open: true
+    tty: true  
+    deploy:    
+      replicas: 2
+    volumes:
+      - "./keys/slaves/:/home/ansible/.ssh/:ro"
+    networks:
+      - backend
+
+
+  service-four:
+    image: eshishkin/ssh
+    stdin_open: true
+    tty: true   
+    deploy:    
+      replicas: 2
+    volumes:
+      - "./keys/slaves/:/home/ansible/.ssh/:ro"
+    networks:
+      - backend
+

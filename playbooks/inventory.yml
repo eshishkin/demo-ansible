@@ -1,0 +1,29 @@
+all:
+    vars:
+        ansible_user: ansible
+us-region:
+  children:
+    us-east:
+    us-west:
+
+us-east:
+  children:
+    frontend:
+    database:
+
+us-west:
+  children:
+    backend:
+  
+frontend:
+  hosts:
+    ansible-service-one-[1:2]:
+    ansible-service-two-[1:2]:
+
+backend:
+  hosts:
+    ansible-service-three-[1:2]
+
+database:
+  hosts:
+    ansible-service-four-[1:2]

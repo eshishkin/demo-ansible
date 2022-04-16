@@ -1,0 +1,42 @@
+---
+# tasks file for db-users
+
+- name: Collect existing users
+  shell: "getent passwd | grep \"/home\" | cut -d: -f1"
+  register: local_users
+
+- name: Print found users
+  debug:
+    var: local_users.stdout_lines
+ 
+- name: Get current user
+  shell: whoami
+  register: whoami
+
+- name: Delete all existing users
+  become: true
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: absent
+    remove: yes
+  when: item != whoami.stdout
+  loop: "{{ local_users.stdout_lines }}"
+  
+- name: Add sudo users
+  become: true
+  ansible.builtin.user:
+    name: "{{ item.user }}"
+    create_home : true
+    state: present
+    groups: "sudo"
+  when: item.sudo == "yes"
+  loop: "{{ users }}"
+  
+- name: Add ordinary users
+  become: true
+  ansible.builtin.user:
+    name: "{{ item.user }}"
+    create_home : true
+    state: present
+  when: item.sudo != "yes"
+  loop: "{{ users }}"

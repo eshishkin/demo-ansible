@@ -1,0 +1,8 @@
+# Default ignored files
+.idea
+/shelf/
+/workspace.xml
+/target
+/keys/master/id_*
+/keys/master/known_hosts
+/keys/slaves/authorized_keys
