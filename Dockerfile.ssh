@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:jammy
 RUN apt update && apt install  openssh-server sudo python3 less -y
 RUN useradd -rm -d /home/ansible -s /bin/bash -g root -G sudo -u 1000 ansible
 RUN mkdir -p /home/ansible/.ssh && \
